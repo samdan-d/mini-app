@@ -7,10 +7,10 @@ import img2 from './assets/product-2.jpg';
 
 const code = 'B3D3DF06DDA15B44E0532A64A8C0DF61';
 const tokenUrl = 'https://test.hipay.mn/v2/auth/token1';
-const profileUrl = 'https://test.hipay.mn/v2/auth/token1';
+// const profileUrl = 'https://test.hipay.mn/v2/auth/token1';
 
 function App() {
-  const [products, setProducts] = React.useState([{
+  const [products] = React.useState([{
     name: 'T-Shirt 1',
     price: "15'000",
     image: img1
@@ -19,8 +19,8 @@ function App() {
     price: "20'000",
     image: img2
   }]);
-  const [token, setToken] = React.useState(null);
-  const [profile, setProfile] = React.useState({ name: 'hi' });
+  // const [token, setToken] = React.useState(null);
+  const [profile] = React.useState({ name: 'hi' });
 
   const getToken = React.useCallback(async () => {
     const tokenResponse = await fetch(tokenUrl, {
@@ -43,6 +43,7 @@ function App() {
   }, []);
 
   React.useEffect(() => {
+    console.log(window.hpsCheckout);
     getToken();
   }, [getToken]);
 
@@ -64,6 +65,7 @@ function App() {
         </Navbar.Collapse>
       </Navbar>
       <Container >
+        {window.testMessage + '11111111111111'}
         <Row>
           {
             products.map((product, i) => (
@@ -73,7 +75,7 @@ function App() {
                   <Card.Body>
                     <Card.Title>{product.name}</Card.Title>
                     <Card.Text>₮{product.price}</Card.Text>
-                    <Button variant="primary">Авах</Button>
+                    <Button onClick={() => { window.hpsCheckout(15000, 'songo.mn') }} variant="primary">Авах</Button>
                   </Card.Body>
                 </Card>
               </Col>
